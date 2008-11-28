@@ -31,11 +31,12 @@ passing public_key_path via the command line.
 
     h.say "I need some information to SSH into the server."
     hostname = h.ask("Remote Hostname: ") { |q| q.validate = not_blank }
+    port = h.ask("Remote port: ") { |q| q.default = 22 }
     username = h.ask("Username, enter for default: ") { |q| q.default = ENV["USER"] }
     password = h.ask("Password: ") { |q| q.echo = "*" }
 
     begin
-      Net::SSH.start(hostname, username, :password => password) do |ssh|
+      Net::SSH.start(hostname, username, :password => password, :port => port) do |ssh|
         puts "Uploading your public key... "
         ssh.scp.upload! public_key, "my_public_key"
 
