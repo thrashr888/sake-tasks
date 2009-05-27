@@ -26,7 +26,7 @@ namespace 'git' do
         
         FileUtils.chdir git_src_folder do
           puts "Installing to #{target_base_folder}"
-          sh "make prefix=#{target_base_folder} all"
+          sh "PERL_PATH='/usr/bin/env perl' make prefix=#{target_base_folder} all"
           sh "sudo make prefix=#{target_base_folder} install all"
         end
       end
